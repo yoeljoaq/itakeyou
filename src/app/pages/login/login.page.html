@@ -1,0 +1,62 @@
+<ion-content [fullscreen]="true">
+   <ion-toolbar>
+      <ion-button slot="end">
+         <ion-back-button defaultHref="/landing"></ion-back-button>
+      </ion-button>  
+   </ion-toolbar>
+   <div id=" container">
+      You are 
+    <!--{{status ? 'Online' : 'Offline'}}--> 
+      <ion-text *ngIf="status" color="success">Online</ion-text> 
+      <ion-text *ngIf="status == false" color="danger">Offline</ion-text>
+    </div>
+
+   
+  <div class="header">
+   
+   
+     <ion-title class="title">iTakeYouApp</ion-title>
+     <p class="subTitle">Inicia sesión para acceder a tu cuenta</p>
+  </div>
+  <form [formGroup] ="loginForm">
+     <div class="ion-padding">
+        <ion-item>
+           <ion-input formControlName="email" placeholder="Correo electrónico" class="input"></ion-input>
+           <ion-icon name="person-outline" color="medium"></ion-icon>
+        </ion-item>
+        <div *ngIf="this.loginForm.controls?.['email'].touched && this.loginForm.controls?.['email'].invalid" >
+         <ion-text *ngIf ="errorControl.email.errors?.required" >
+               El campo no debe estar vacío   
+         </ion-text>
+         <ion-text *ngIf ="errorControl.email.errors?.pattern" >
+            Email no valido  
+         </ion-text>
+    </div>
+        <ion-item>
+           <ion-input formControlName="password" [type] ="showPassword ? 'text': 'password' " placeholder="Contraseña" class="input"></ion-input>
+           <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()" color="medium"></ion-icon>
+        </ion-item>
+        <div *ngIf="this.loginForm.controls?.['password'].touched && this.loginForm.controls?.['password'].invalid" >
+         <ion-text *ngIf ="errorControl.password.errors?.required" >
+               El campo no debe estar vacío   
+         </ion-text>
+         <ion-text *ngIf ="errorControl.password.errors?.pattern" >
+            Contraseña no valida 
+         </ion-text>
+         </div>
+
+
+        <div class="forgotPassword"> 
+           <a [routerLink]="['/reset-password']" style="color: #5260ff;">¿Olvidaste tu contraseña?</a>
+        </div>
+        <div class="signupLink">
+           <p><a [routerLink]="['/signup']" style="color: #5260ff;">Crear Cuenta</a></p>
+        </div>
+     </div>
+     <ion-fab vertical="bottom" horizontal="end" style="margin-bottom: 50px;" >
+        <ion-fab-button (click)="login()">
+           <ion-icon name="chevron-forward"></ion-icon>
+        </ion-fab-button>
+     </ion-fab>
+  </form>
+</ion-content>

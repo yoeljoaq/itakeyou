@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Listado de usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Listado de Usuarios</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="listado.length > 0">
+    <ion-list>
+      <div *ngFor="let aux of listado">
+        <ion-item [routerLink]="['../datospersona/', aux.id]">
+          <ion-label>{{ aux.name }}</ion-label>
+          <ion-label>{{ aux.username }}</ion-label>
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>
+

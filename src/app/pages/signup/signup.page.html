@@ -1,0 +1,64 @@
+<ion-content [fullscreen]="true">
+<ion-toolbar>
+   <ion-button slot="end">
+      <ion-back-button defaultHref="/landing"></ion-back-button>
+   </ion-button>
+
+</ion-toolbar>
+
+  <div class="header">
+     <ion-title class="title">Crear Cuenta</ion-title>
+     <p class="subTitle">Rellena los campos con tus datos</p>
+  </div>
+  <form [formGroup] ="regForm" novalidate>
+     <div class="ion-padding">
+        <ion-item>
+           <ion-input formControlName = "fullname" placeholder="Nombre de usuario" class="input"></ion-input>
+           <ion-icon name="person-outline"></ion-icon>
+        </ion-item>
+        <div *ngIf="this.regForm.controls?.['fullname'].touched && this.regForm.controls?.['fullname'].invalid">
+         <ion-text *ngIf ="errorControl.fullname.errors?.required">
+            Campo no debe estar vacío
+         </ion-text>
+        </div>
+
+
+        <ion-item class="input">
+          <ion-input formControlName = "email" placeholder="Correo electrónico" class="input"></ion-input>
+          <ion-icon name="person-outline"></ion-icon>
+       </ion-item>
+       <div *ngIf="this.regForm.controls?.['email'].touched && this.regForm.controls?.['email'].invalid" >
+            <ion-text *ngIf ="errorControl.email.errors?.required" >
+                  El campo no debe estar vacío   
+            </ion-text>
+            <ion-text *ngIf ="errorControl.email.errors?.pattern" >
+               Email no valido  
+            </ion-text>
+      </div>
+
+      <ion-item>
+         <ion-input formControlName="password" [type] ="showPassword ? 'text': 'password' " placeholder="Contraseña" class="input"></ion-input>
+         <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()" color="medium"></ion-icon>
+         
+      </ion-item>
+        <div *ngIf="this.regForm.controls?.['password'].touched && this.regForm.controls?.['password'].invalid" >
+         <ion-text *ngIf ="errorControl.password.errors?.required" >
+               El campo no debe estar vacío   
+         </ion-text>
+         <ion-text *ngIf ="errorControl.password.errors?.pattern" >
+            Contraseña no valida, debe tener 8 caracteres, una mayúscula y un número como mínimo.
+         </ion-text>
+    </div>
+
+
+        <div class="signinLink">
+           <p><a [routerLink]="['/login']" style="color: #5260ff;">¿Ya eres miembra/o? - Inicia sesión aquí</a></p>
+        </div>
+     </div>
+     <ion-fab vertical="bottom" horizontal="end" style="margin-bottom: 50px;">
+        <ion-fab-button (click)="signUp()">
+           <ion-icon name="chevron-forward"></ion-icon>
+        </ion-fab-button>
+     </ion-fab>
+  </form>
+</ion-content>

@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  
+
+  <ion-toolbar>
+    <ion-button (click)="logout()">Cerrar Sesión</ion-button>
+    <ion-title>
+
+      
+    </ion-title>
+  </ion-toolbar>
+  
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      
+    </ion-toolbar>
+  </ion-header>
+  <div id=" container">
+    You are 
+  <!--{{status ? 'Online' : 'Offline'}}--> 
+    <ion-text *ngIf="status" color="success">Online</ion-text> 
+    <ion-text *ngIf="status == false" color="danger">Offline</ion-text>
+  </div>
+
+  <div id="container">
+    <strong>Welcome to iTakeYouApp!</strong> 
+    <ion-button class="conductor" [routerLink]="['/driver']" expand="full">Disponibilizar</ion-button>
+    <ion-button class="pasajero" [routerLink]="['/passenger']" expand="full ">Solicitar</ion-button>
+
+    
+    
+    
+  </div>
+</ion-content>

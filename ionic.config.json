@@ -1,0 +1,7 @@
+{
+  "name": "ITakeYouApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
