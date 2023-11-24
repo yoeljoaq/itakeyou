@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { HelperService } from 'src/app/services/helper.service ';
 
 @Component({
   selector: 'app-reset-password',
@@ -8,20 +9,40 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   styleUrls: ['./reset-password.page.scss'],
 })
 export class ResetPasswordPage implements OnInit {
-email:any
-  constructor(public route:Router, public authService:AuthenticationService) { }
+  email: any;
+  emailNotFound: boolean = false;
 
-  ngOnInit() {
-  }
-  async resetPassword(){
-    this.authService.resetPassword(this.email).then(()=>{
-    console.log('link enviado')
-    this.route.navigate(['/login'])
+  constructor(
+    public route: Router,
+    public authService: AuthenticationService,
+    public helperService: HelperService
+  ) {}
+
+  ngOnInit() {}
+
+  async resetPassword() {
+
+    this.emailNotFound = false;
+    if (!this.email) {
+
+      this.helperService.showAlert("Debes ingresar un email", "Error");
+      return; 
     }
-    
-    ).catch((error)=>{
-      console.log(error);
-    })
-  }
 
+    this.authService
+      .resetPassword(this.email)
+      .then(() => {
+        this.helperService.showToast("Mensaje enviado exitosamente");
+        console.log('Link enviado');
+        this.route.navigate(['/login']);
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.code === 'auth/user-not-found') {
+          this.emailNotFound = true;
+        } else {
+          console.log(error);
+        }
+      });
+  }
 }
